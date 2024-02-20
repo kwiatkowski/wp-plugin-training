@@ -21,6 +21,7 @@ if (!function_exists('tax_training_shoes')):
             'labels'            => $labels,
             'hierarchical'      => true,
             'public'            => true,
+            'show_in_rest'      => true, // /wp-json/wp/v2/training_shoes
             'show_ui'           => true,
             'show_admin_column' => true,
             'show_in_nav_menus' => true,
