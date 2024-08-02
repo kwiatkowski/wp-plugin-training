@@ -6,14 +6,19 @@
  * Author URI: https://kwiatkowski.co
  * Text Domain: theme-plugin running-calculator
  * Domain Path: /languages/
- * Version: 2024.02.20
+ * Version: 2024.08.02
  */
 
 define('TRAINING_NAME', 'running-calculator');
 
 
+// assets
+require 'assets/assets.php';
+
+
 // custom types
 require 'src/pt-training.php';
+
 
 // custom taxonomies
 require 'src/tax-training-shoes.php';

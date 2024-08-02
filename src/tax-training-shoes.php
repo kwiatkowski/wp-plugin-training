@@ -19,8 +19,8 @@ if (!function_exists('tax_training_shoes')):
 
         $args = array(
             'labels'            => $labels,
-            'hierarchical'      => true,
-            'public'            => true,
+            'hierarchical'      => false,
+            'public'            => false,
             'show_in_rest'      => true, // /wp-json/wp/v2/training_shoes
             'show_ui'           => true,
             'show_admin_column' => true,
@@ -40,3 +40,40 @@ if (!function_exists('tax_training_shoes')):
 endif;
 
 add_action('init', 'tax_training_shoes', 0);
+
+// Usunięcie pola Opis z formularza dodawania nowej taksonomii
+function remove_description_field_for_training_shoes_add($taxonomy) {
+    if ($taxonomy === 'training_shoes') {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $('textarea#tag-description').closest('.form-field').remove();
+            });
+        </script>
+        <?php
+    }
+}
+add_action('training_shoes_add_form_fields', 'remove_description_field_for_training_shoes_add');
+
+// Usunięcie pola Opis z formularza edycji taksonomii
+function remove_description_field_for_training_shoes_edit($term, $taxonomy) {
+    if ($taxonomy === 'training_shoes') {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $('tr.form-field.term-description-wrap').remove();
+            });
+        </script>
+        <?php
+    }
+}
+add_action('training_shoes_edit_form_fields', 'remove_description_field_for_training_shoes_edit', 10, 2);
+
+// Usunięcie kolumny Opis z tabeli termów
+function remove_description_column_from_training_shoes($columns) {
+    if (isset($columns['description'])) {
+        unset($columns['description']);
+    }
+    return $columns;
+}
+add_filter('manage_edit-training_shoes_columns', 'remove_description_column_from_training_shoes');
